@@ -69,6 +69,23 @@ public:
 			inventory.push_back(incoming[i]);
 		}
 	}
+
+	bool hasItem(std::string& item)
+	{
+		bool status = std::find(inventory.begin(), inventory.end(), item) != inventory.end();
+		return status;
+	}
+
+	bool removeItem(std::string& item)
+	{
+		auto it = std::find(inventory.begin(), inventory.end(), item);
+		if (it != inventory.end()) {
+			inventory.erase(it);
+			return true; 
+		}
+		return false; 
+	}
+
 private:
 	int health;
 	int sanity;
