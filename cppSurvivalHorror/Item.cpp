@@ -1,45 +1,36 @@
-#include <string>
-#include <vector>
+#include "Item.h"
 #include <iostream>
 
-class Item {
-public:
-	Item(std::string name, std::string description, std::string purpose)
-	{
-		name = name;
-		description = description;
-		purpose = purpose;
-	}
+Item::Item(std::string name, std::string description, std::string purpose) {
+    this->name = name;
+    this->description = description;
+    this->purpose = purpose;
+}
 
-	void addInteractiontags(const std::string& interaction)
-	{
-		interactionTags.push_back(interaction);
-	}
+void Item::addInteractiontags(const std::string& interaction) {
+    interactionTags.push_back(interaction);
+}
 
-	std::string getName()
-	{
-		return name;
-	}
+std::string Item::getName() {
+    return name;
+}
 
-	void getDescription()
-	{
-		std::cout << "You see " << description << std::endl;
-	}
+void Item::Describe() {
+    std::cout << "You see " << description << std::endl;
+}
 
-	std::string getPurpose()
-	{
-		return purpose;
-	}
+std::string Item::getDescription()
+{
+    return description;
+}
 
-	bool canInteractWith(const std::string& tag) const {
-		for (const auto& t : interactionTags) {
-			if (t == tag) return true;
-		}
-		return false;
-	}
-private:
-	std::string name;
-	std::string description;
-	std::string purpose;
-	std::vector<std::string> interactionTags;
-};
+std::string Item::getPurpose() {
+    return purpose;
+}
+
+bool Item::canInteractWith(const std::string& tag) const {
+    for (const auto& t : interactionTags) {
+        if (t == tag) return true;
+    }
+    return false;
+}

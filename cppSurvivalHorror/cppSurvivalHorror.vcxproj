@@ -129,12 +129,20 @@
   <ItemGroup>
     <ClCompile Include="cppSurvivalHorror.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Furniture.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Room.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Furniture.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Room.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
