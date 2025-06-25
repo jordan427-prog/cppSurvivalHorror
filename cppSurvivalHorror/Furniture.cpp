@@ -8,6 +8,26 @@ Furniture::Furniture(std::string name, std::string description, std::string tag,
     this->isLocked = isLocked;
 }
 
+Furniture Furniture::createDefaultCabinet()
+{
+    return Furniture("cabinet", "an old locked dusty cabinet", "cabinet", true);
+}
+
+Furniture Furniture::createDefaultShelf()
+{
+    return Furniture("shelf", "an old locked dusty shelf", "shelf", true);
+}
+
+Furniture Furniture::createDefaultChair()
+{
+    return Furniture("chair", "an old dusty chair", "chair", false);
+}
+
+Furniture Furniture::createDefaultTable()
+{
+    return Furniture("table", "an old dusty table", "cabinet", false);
+}
+
 std::string Furniture::getName() {
     return name;
 }
