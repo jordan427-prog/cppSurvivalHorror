@@ -11,10 +11,12 @@ public:
 
     void addItem(const Item item);
     void connectRoom(Room* room);
+    bool isConnected(Room* targ);
     void Describe();
     std::string getDescription();
     void getFurniture();
     void addFurniture(std::vector<Furniture> furn);
+    std::string getName();
 
 private:
     std::string name;
