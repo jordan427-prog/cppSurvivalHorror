@@ -13,6 +13,8 @@ public:
     static Furniture createDefaultShelf();
     static Furniture createDefaultChair();
     static Furniture createDefaultTable();
+    static Furniture createDefaultDoor();
+    static Furniture createBrokenDoor();
 
     std::string getName();
     std::string getDescription();
