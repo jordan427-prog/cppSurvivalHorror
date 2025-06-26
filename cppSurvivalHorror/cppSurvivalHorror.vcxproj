@@ -130,6 +130,7 @@
     <ClCompile Include="cppSurvivalHorror.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Furniture.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Room.cpp" />
@@ -140,6 +141,7 @@
   <ItemGroup>
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Furniture.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Room.h" />

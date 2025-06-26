@@ -38,6 +38,11 @@ Furniture Furniture::createBrokenDoor()
     return Furniture("broken door", "this door seems jammed, I need to break it down somehow", "broken door", true);
 }
 
+Furniture Furniture::createCouch()
+{
+    return Furniture("couch", "this seems to be a regular couch. This is at least 100 years old. It sure is dirty", "couch", false);
+}
+
 std::string Furniture::getName() {
     return name;
 }

@@ -6,8 +6,9 @@
 
 class Room {
 public:
-    Room(std::string name, std::string description, std::vector<Item> items,
-        std::vector<Room*> connectedRooms, bool isLocked);
+    // You must connect rooms after instantiation
+    // You must also add furniture separately
+    Room(std::string name, std::string description, std::vector<Item> items, bool isLocked);
 
     void addItem(const Item item);
     void connectRoom(Room* room);
@@ -15,6 +16,7 @@ public:
     void Describe();
     std::string getDescription();
     void getFurniture();
+    void getItems();
     void addFurniture(std::vector<Furniture> furn);
     std::string getName();
 

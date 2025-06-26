@@ -1,12 +1,11 @@
 #include "Room.h"
 #include <iostream>
 
-Room::Room(std::string name, std::string description, std::vector<Item> items,
-    std::vector<Room*> connectedRooms, bool isLocked) {
+// You need to add furniture and connect rooms separately after instantiation
+Room::Room(std::string name, std::string description, std::vector<Item> items, bool isLocked) {
     this->name = name;
     this->description = description;
     this->items = items;
-    this->connectedRooms = connectedRooms;
     this->isLocked = isLocked;
 }
 
@@ -45,6 +44,15 @@ void Room::getFurniture() {
     }
 }
 
+void Room::getItems()
+{
+    for (int i = 0;i < items.size();i++)
+    {
+        std::cout << "You see " << items[i].getName() << std::endl;
+    }
+}
+
+// Must do this after instantiation, refer to Furnitures's classes to see how to add items
 void Room::addFurniture(std::vector<Furniture> furn) {
     for (int i = 0; i < furn.size(); i++) {
         furniture.push_back(furn[i]);
