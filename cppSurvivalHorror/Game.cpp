@@ -8,7 +8,9 @@ void Game::setup()
 	livingRoomItems.push_back(intro_photo);
 	Room livingRoom = Room::Room("living room", "this dark and dusty room appears to be a living room...", livingRoomItems, false);
 	Item default_axe = Item::createDefaultAxe();
+	// the axe can be used for this
 	default_axe.addInteractiontags("broken door");
+	// key needed!
 	Furniture livingRoomCabinet = Furniture::Furniture("living room cabinet", "an oak cabinet. This seems expensive, maybe theres something of value inside? It is locked, this requires a key", "cabinet", true);
 	livingRoomCabinet.addItem(default_axe);
 	Furniture livingRoomDoor1 = Furniture::createDefaultDoor();
@@ -19,6 +21,9 @@ void Game::setup()
 	furn.push_back(livingRoomDoor2);
 	livingRoom.addFurniture(furn);
 	rooms.push_back(livingRoom);
+
+	// kitchen
+	//Room kitchen= Room::Room("kitchen", "this appears to have once been a kitchen. ")
 }
 
 void Game::run()
