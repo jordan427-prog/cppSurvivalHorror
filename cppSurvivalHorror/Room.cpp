@@ -48,9 +48,13 @@ void Room::getFurniture() {
 // returns a null furniture object if not found
 Furniture Room::getFurnitureByName(std::string name)
 {
+    std::transform(name.begin(), name.end(), name.begin(), ::tolower);
     for (int i = 0;i < furniture.size();i++)
     {
-        if (furniture[i].getName() == name)
+        std::string tempName = furniture[i].getName();
+        std::transform(tempName.begin(), tempName.end(), tempName.begin(), ::tolower);
+
+        if (tempName == name)
         {
             return furniture[i];
         }
@@ -69,9 +73,12 @@ void Room::getItems()
 // returns a null item object if not found
 Item Room::getItemByName(std::string name)
 {
+    std::transform(name.begin(), name.end(), name.begin(), ::tolower);
     for (int i = 0;i < items.size();i++)
     {
-        if (items[i].getName() == name)
+        std::string tempName = items[i].getName();
+        std::transform(tempName.begin(), tempName.end(), tempName.begin(), ::tolower);
+        if (tempName == name)
         {
             return items[i];
         }
