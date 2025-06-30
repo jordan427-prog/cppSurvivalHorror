@@ -8,6 +8,13 @@ Item::Item(std::string name, std::string description, std::string purpose) {
     this->purpose = purpose;
 }
 
+Item::Item()
+{
+    name = "null";
+    description = "null";
+    purpose = "null";
+}
+
 Item Item::createDefaultAxe()
 {
     return Item("axe", "a small rusty axe. Although old, this axe appears sharp", "You can use this to break brittle and thin wood...like boxes");

@@ -16,7 +16,11 @@ public:
     void Describe();
     std::string getDescription();
     void getFurniture();
+    Furniture getFurnitureByName(std::string name);
     void getItems();
+    Item getItemByName(std::string name);
+    std::vector<Furniture>& getFurnitureList();
+    std::vector<Item>& getItemsList();
     void addFurniture(std::vector<Furniture> furn);
     std::string getName();
 

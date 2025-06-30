@@ -10,8 +10,12 @@ void Game::setup()
 	Item default_axe = Item::createDefaultAxe();
 	// the axe can be used for this
 	default_axe.addInteractiontags("broken door");
-	// key needed!
+	// key needed for cabinet!
 	Furniture livingRoomCabinet = Furniture::Furniture("living room cabinet", "an oak cabinet. This seems expensive, maybe theres something of value inside? It is locked, this requires a key", "cabinet", true);
+	Item livingRoomCabinetKey = Item::createDefaultCabinetKey();
+	livingRoomCabinetKey.addInteractiontags(livingRoomCabinet.getInteractiontag());
+	livingRoomItems.push_back(livingRoomCabinetKey);
+
 	livingRoomCabinet.addItem(default_axe);
 	Furniture livingRoomDoor1 = Furniture::createDefaultDoor();
 	Furniture livingRoomDoor2 = Furniture::createDefaultDoor();

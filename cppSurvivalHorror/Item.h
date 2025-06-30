@@ -6,6 +6,7 @@ class Item {
 public:
     // In order for items to interact, you must separately add interaction tags AFTER instantiating item
     Item(std::string name, std::string description, std::string purpose);
+    Item();
 
     // Factory generation of items
     static Item createDefaultAxe();

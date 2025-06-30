@@ -8,6 +8,14 @@ Furniture::Furniture(std::string name, std::string description, std::string tag,
     this->isLocked = isLocked;
 }
 
+Furniture::Furniture()
+{
+    name = "null";
+    description = "null";
+    interactionTag = "nothing";
+    isLocked = true;
+}
+
 Furniture Furniture::createDefaultCabinet()
 {
     return Furniture("cabinet", "an old locked dusty cabinet", "cabinet", true);
@@ -79,4 +87,9 @@ void Furniture::removeItem(Item& item) {
             break;
         }
     }
+}
+
+bool Furniture::isLockedCheck()
+{
+    return isLocked;
 }

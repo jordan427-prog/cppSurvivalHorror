@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 
+// To add later
 class Puzzle
 {
 public:
