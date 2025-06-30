@@ -1,5 +1,6 @@
 #include "Furniture.h"
 #include <iostream>
+#include <algorithm>
 
 Furniture::Furniture(std::string name, std::string description, std::string tag, bool isLocked) {
     this->name = name;
@@ -92,4 +93,25 @@ void Furniture::removeItem(Item& item) {
 bool Furniture::isLockedCheck()
 {
     return isLocked;
+}
+
+std::vector<Item> Furniture::getItemsList()
+{
+    return items;
+}
+
+// returns null item object if nothing found
+Item Furniture::getItemByName(std::string name)
+{
+    std::transform(name.begin(), name.end(), name.begin(), ::tolower);
+    for (int i = 0;i < items.size();i++)
+    {
+        std::string tempName = items[i].getName();
+        std::transform(tempName.begin(), tempName.end(), tempName.begin(), ::tolower);
+        if (tempName == name)
+        {
+            return items[i];
+        }
+    }
+    return Item{};
 }

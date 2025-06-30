@@ -26,6 +26,8 @@ public:
     void addItem(Item& item);
     void removeItem(Item& item);
     bool isLockedCheck();
+    std::vector<Item> getItemsList();
+    Item getItemByName(std::string name);
 
 private:
     std::string name;
