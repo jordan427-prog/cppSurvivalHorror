@@ -12,6 +12,7 @@ public:
 	Door(std::string name, Room* a, Room* b, bool lockStatus);
 	bool isLocked();
 	void unlock();
+	Room* getOtherRoom(Room* room);
 
 private:
 	std::string name;

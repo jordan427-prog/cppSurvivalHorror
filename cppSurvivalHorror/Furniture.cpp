@@ -37,15 +37,15 @@ Furniture Furniture::createDefaultTable()
     return Furniture("table", "an old dusty table", "table", false);
 }
 
-Furniture Furniture::createDefaultDoor()
-{
-    return Furniture("door", "a locked door, there is probably another room behind this door", "accessible door", true);
-}
-
-Furniture Furniture::createBrokenDoor()
-{
-    return Furniture("broken door", "this door seems jammed, I need to break it down somehow", "broken door", true);
-}
+//Furniture Furniture::createDefaultDoor()
+//{
+//    return Furniture("door", "a locked door, there is probably another room behind this door", "accessible door", true);
+//}
+//
+//Furniture Furniture::createBrokenDoor()
+//{
+//    return Furniture("broken door", "this door seems jammed, I need to break it down somehow", "broken door", true);
+//}
 
 Furniture Furniture::createCouch()
 {

@@ -9,10 +9,10 @@ Door::Door()
 
 Door::Door(std::string name, Room* a, Room* b, bool lockStatus)
 {
-	name = name;
-	a = a;
-	b = b;
-	isLockedStatus = lockStatus;
+	this->name = name;
+	this->a = a;
+	this->b = b;
+	this->isLockedStatus = lockStatus;
 }
 
 bool Door::isLocked()
@@ -23,4 +23,20 @@ bool Door::isLocked()
 void Door::unlock()
 {
 	isLockedStatus = false;
+}
+
+Room* Door::getOtherRoom(Room* room)
+{
+	if (room == a)
+	{
+		return b;
+	}
+	if (room == b)
+	{
+		return a;
+	}
+	else
+	{
+		return nullptr;
+	}
 }

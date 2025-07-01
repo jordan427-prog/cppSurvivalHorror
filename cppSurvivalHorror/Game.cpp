@@ -17,12 +17,12 @@ void Game::setup()
 	livingRoomItems.push_back(livingRoomCabinetKey);
 
 	livingRoomCabinet.addItem(default_axe);
-	Furniture livingRoomDoor1 = Furniture::createDefaultDoor();
-	Furniture livingRoomDoor2 = Furniture::createDefaultDoor();
+	//Furniture livingRoomDoor1 = Furniture::createDefaultDoor();
+	//Furniture livingRoomDoor2 = Furniture::createDefaultDoor();
 	std::vector<Furniture> furn;
 	furn.push_back(livingRoomCabinet);
-	furn.push_back(livingRoomDoor1);
-	furn.push_back(livingRoomDoor2);
+	//furn.push_back(livingRoomDoor1);
+	//furn.push_back(livingRoomDoor2);
 	livingRoom.addFurniture(furn);
 	rooms.push_back(livingRoom);
 

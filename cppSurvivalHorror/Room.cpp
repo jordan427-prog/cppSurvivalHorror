@@ -14,8 +14,26 @@ void Room::addItem(const Item item) {
     items.push_back(item);
 }
 
-void Room::connectRoom(Room* room) {
+// this automatically creates a door between both rooms involved
+// This function will automatically initialize a door between the rooms upon connecting them
+void Room::connectRoom(Room* room, bool isLockedState) {
+    bool val = isConnected(room);
+
+    if (val == true)
+    {
+        return;
+    }
+
+    // adding connected room BOTH ways for tracking from each room involved
     connectedRooms.push_back(room);
+    room->connectedRooms.push_back(this);
+
+    std::string name = this->name + "_" + room->getName() + "_door";
+
+    Door* newDoor = new Door(name, this, room, isLockedState);
+
+    this->addDoor(newDoor);
+    room->addDoor(newDoor);
 }
 
 bool Room::isConnected(Room* targ)
@@ -106,4 +124,9 @@ void Room::addFurniture(std::vector<Furniture> furn) {
 std::string Room::getName()
 {
     return name;
+}
+
+void Room::addDoor(Door* door)
+{
+    doors.push_back(door);
 }

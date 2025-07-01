@@ -3,6 +3,9 @@
 #include <vector>
 #include "Item.h"
 #include "Furniture.h"
+#include "Door.h"
+
+class Door;
 
 class Room {
 public:
@@ -11,7 +14,7 @@ public:
     Room(std::string name, std::string description, std::vector<Item> items, bool isLocked);
 
     void addItem(const Item item);
-    void connectRoom(Room* room);
+    void connectRoom(Room* room, bool isLockedState);
     bool isConnected(Room* targ);
     void Describe();
     std::string getDescription();
@@ -23,6 +26,7 @@ public:
     std::vector<Item>& getItemsList();
     void addFurniture(std::vector<Furniture> furn);
     std::string getName();
+    void addDoor(Door* door);
 
 private:
     std::string name;
@@ -30,5 +34,6 @@ private:
     std::vector<Item> items;
     std::vector<Room*> connectedRooms;
     std::vector<Furniture> furniture;
+    std::vector<Door*> doors;
     bool isLocked;
 };
