@@ -4,6 +4,7 @@
 #include "Item.h"
 #include "Furniture.h"
 #include "Door.h"
+#include <iostream>
 
 class Door;
 
@@ -27,6 +28,8 @@ public:
     void addFurniture(std::vector<Furniture> furn);
     std::string getName();
     void addDoor(Door* door);
+    std::vector<Door*>& getDoorList();
+    void printDoorList();
 
 private:
     std::string name;

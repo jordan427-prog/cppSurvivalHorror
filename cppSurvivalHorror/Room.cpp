@@ -130,3 +130,18 @@ void Room::addDoor(Door* door)
 {
     doors.push_back(door);
 }
+
+std::vector<Door*>& Room::getDoorList()
+{
+    return doors;
+}
+
+void Room::printDoorList()
+{
+    std::cout << "doors list for room: " << this->getName() << " include: " << std::endl;
+
+    for (int i = 0;i < doors.size();i++)
+    {
+        std::cout << doors[i] << std::endl;
+    }
+}
