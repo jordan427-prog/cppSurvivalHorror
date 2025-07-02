@@ -17,8 +17,11 @@ void Game::setup()
 	// key needed for cabinet!
 	Furniture livingRoomCabinet = Furniture::Furniture("living room cabinet", "an oak cabinet. This seems expensive, maybe theres something of value inside? It is locked, this requires a key", "cabinet", true);
 	Item livingRoomCabinetKey = Item::createDefaultCabinetKey();
+	Item first_key = Item::createDefaultDoorKey();
 	livingRoomCabinetKey.addInteractiontags(livingRoomCabinet.getInteractiontag());
 	livingRoomItems.push_back(livingRoomCabinetKey);
+	livingRoomItems.push_back(first_key);
+
 
 	livingRoomCabinet.addItem(default_axe);
 	std::vector<Furniture> furn;
@@ -35,10 +38,16 @@ void Game::setup()
 
 	kitchen->connectRoom(livingRoom, true);
 
-	kitchen->printDoorList();
+	//kitchen->printDoorList();
 }
 
 void Game::run()
 {
+	showBackstory();
+}
 
+void Game::showBackstory()
+{
+	std::cout<<"You wake up in an abandoned and eerie looking house in the middle of nowhere."<<std::endl << "Its clear you have been kidnapped by somebody or something. You dont remember who you are or how you got here. " << std::endl;
+	std::cout << "You need to find a way to escape the house." << std::endl;
 }

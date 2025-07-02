@@ -13,6 +13,7 @@ public:
 	Game();
 	void setup();
 	void run();
+	void showBackstory();
 
 private:
 	Room* currentRoom;

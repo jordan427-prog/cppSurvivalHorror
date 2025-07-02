@@ -4,7 +4,8 @@
 
 int main()
 {
-	std::cout << "hi";
+	//std::cout << "hi";
 	Game game;
 	game.setup();
+	game.run();
 }
