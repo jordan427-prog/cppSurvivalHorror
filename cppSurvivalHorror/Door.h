@@ -13,6 +13,7 @@ public:
 	bool isLocked();
 	void unlock();
 	Room* getOtherRoom(Room* room);
+	std::string getName();
 
 private:
 	std::string name;

@@ -10,12 +10,13 @@
 class Game
 {
 public:
+	Game();
 	void setup();
 	void run();
 
 private:
 	Room* currentRoom;
 	Player player;
-	std::vector<Room> rooms;
-	Enemy enemy;
+	std::vector<Room*> rooms;
+	//Enemy enemy;
 };

@@ -3,11 +3,10 @@
 #include <algorithm>
 
 // You need to add furniture and connect rooms separately after instantiation
-Room::Room(std::string name, std::string description, std::vector<Item> items, bool isLocked) {
+Room::Room(std::string name, std::string description, std::vector<Item> items) {
     this->name = name;
     this->description = description;
     this->items = items;
-    this->isLocked = isLocked;
 }
 
 void Room::addItem(const Item item) {
@@ -138,10 +137,19 @@ std::vector<Door*>& Room::getDoorList()
 
 void Room::printDoorList()
 {
+    std::cout << std::endl;
     std::cout << "doors list for room: " << this->getName() << " include: " << std::endl;
 
     for (int i = 0;i < doors.size();i++)
     {
-        std::cout << doors[i] << std::endl;
+        bool val = doors[i]->isLocked();
+        if (val == 1)
+        {
+            std::cout << doors[i]->getName() << " which is currently: locked" << std::endl;
+        }
+        else
+        {
+            std::cout << doors[i]->getName() << " which is currently: unlocked" << std::endl;
+        }
     }
 }

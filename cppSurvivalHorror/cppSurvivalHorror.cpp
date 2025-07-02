@@ -1,7 +1,10 @@
 #include <iostream>
-#include "Player.cpp"
+#include "Player.h"
+#include "Game.h"
 
 int main()
 {
 	std::cout << "hi";
+	Game game;
+	game.setup();
 }

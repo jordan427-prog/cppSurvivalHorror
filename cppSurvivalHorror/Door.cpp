@@ -40,3 +40,8 @@ Room* Door::getOtherRoom(Room* room)
 		return nullptr;
 	}
 }
+
+std::string Door::getName()
+{
+	return name;
+}
