@@ -6,6 +6,7 @@
 #include "Enemy.h"
 #include "Furniture.h"
 #include "Item.h"
+#include <algorithm>
 
 class Game
 {
@@ -14,6 +15,9 @@ public:
 	void setup();
 	void run();
 	void showBackstory();
+
+	//Room movement
+	void moveRooms();
 
 private:
 	Room* currentRoom;

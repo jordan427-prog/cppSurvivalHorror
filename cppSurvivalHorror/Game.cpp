@@ -38,7 +38,8 @@ void Game::setup()
 
 	kitchen->connectRoom(livingRoom, true);
 
-	//kitchen->printDoorList();
+	//Player starts in the living room - you can change this, but the room must e initialized above.
+	currentRoom = livingRoom;
 }
 
 void Game::run()
@@ -50,4 +51,116 @@ void Game::showBackstory()
 {
 	std::cout<<"You wake up in an abandoned and eerie looking house in the middle of nowhere."<<std::endl << "Its clear you have been kidnapped by somebody or something. You dont remember who you are or how you got here. " << std::endl;
 	std::cout << "You need to find a way to escape the house." << std::endl;
+}
+
+void Game::moveRooms()
+{
+	std::vector<Door*> connected_doors = currentRoom->getDoorList();
+
+	int size = connected_doors.size();
+	
+	if (size == 0)
+	{
+		std::cout << "There are no doors in this room" << std::endl;
+		return;
+	}
+	else if (size == 1)
+	{
+		std::cout << "There is one door in this room" << std::endl;
+	}
+	else 
+	{
+		std::cout << "There are " << size << " doors in this room" << std::endl;
+	}
+
+	currentRoom->printDoorList();
+
+	std::cout << "pick a door to interact with" << std::endl;
+
+	std::string choice;
+	std::cin >> choice;
+
+	std::transform(choice.begin(), choice.end(), choice.begin(), ::tolower);
+
+	Door* door=nullptr;
+
+	for (int i = 0;i < connected_doors.size();i++)
+	{
+
+		std::string doorName = connected_doors[i]->getName();
+		std::transform(doorName.begin(), doorName.end(), doorName.begin(), ::tolower);
+
+		if (doorName == choice)
+		{
+			door = connected_doors[i];
+			break;
+		}
+	}
+
+	if (door == nullptr)
+	{
+		std::cout << "Invalid door, that door does not exist" << std::endl;
+		return;
+	}
+
+	if (door->isLocked() == true)
+	{
+		std::cout << "This door is locked, you need a key" << std::endl;
+
+		std::vector<Item> items = player.getInventory();
+
+		for (int j = 0;j < items.size();j++)
+		{
+			if (items[j].getPurpose() == "door key")
+			{
+				Item k = items[j];
+
+				std::cout << "It looks like you have a door key for this door! You may use a door key only once, do you want to use it here?" << std::endl;
+				std::string key_usage;
+				std::cin >> key_usage;
+
+				std::transform(key_usage.begin(), key_usage.end(), key_usage.begin(), ::tolower);
+
+
+				if (key_usage == "yes")
+				{
+					player.removeItem(k);
+					std::cout << "You have successfully unlocked the door. You no longer have that key" << std::endl;
+					door->unlock();
+
+					std::cout << "You are now entering the " << door->getOtherRoom(currentRoom)->getName();
+					currentRoom = door->getOtherRoom(currentRoom);
+					currentRoom->Describe();
+					currentRoom->getFurniture();
+					currentRoom->getItems();
+					currentRoom->printDoorList();
+					return;
+				}
+				else if (key_usage == "no")
+				{
+					std::cout << "You can not enter this door" << std::endl;
+					return;
+				}
+				else
+				{
+					std::cout << "Invalid response" << std::endl;
+					return;
+				}
+			}
+		}
+		std::cout << "You do not have a key for this door" << std::endl;
+		return;
+	}
+
+	else if (door->isLocked() == false)
+	{
+		Room* nextRoom = door->getOtherRoom(currentRoom);
+		std::cout << "You are now entering the " << nextRoom->getName();
+		currentRoom = door->getOtherRoom(currentRoom);
+		currentRoom->Describe();
+		currentRoom->getFurniture();
+		currentRoom->getItems();
+		currentRoom->printDoorList();
+	}
+
 }
