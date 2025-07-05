@@ -45,6 +45,7 @@ void Game::setup()
 void Game::run()
 {
 	showBackstory();
+	moveRooms();
 }
 
 void Game::showBackstory()
@@ -73,35 +74,24 @@ void Game::moveRooms()
 		std::cout << "There are " << size << " doors in this room" << std::endl;
 	}
 
-	currentRoom->printDoorList();
-
 	std::cout << "pick a door to interact with" << std::endl;
 
-	std::string choice;
+
+	for (int k = 0;k < connected_doors.size();k++)
+	{
+		std::cout << (k + 1) << ". " << connected_doors[k]->getName() << std::endl;
+	}
+
+	int choice = 0;
 	std::cin >> choice;
 
-	std::transform(choice.begin(), choice.end(), choice.begin(), ::tolower);
-
-	Door* door=nullptr;
-
-	for (int i = 0;i < connected_doors.size();i++)
+	if (choice <= 0 || choice > size)
 	{
-
-		std::string doorName = connected_doors[i]->getName();
-		std::transform(doorName.begin(), doorName.end(), doorName.begin(), ::tolower);
-
-		if (doorName == choice)
-		{
-			door = connected_doors[i];
-			break;
-		}
-	}
-
-	if (door == nullptr)
-	{
-		std::cout << "Invalid door, that door does not exist" << std::endl;
+		std::cout << "Invalid choice" << std::endl;
 		return;
 	}
+
+	Door* door = connected_doors[choice - 1];
 
 	if (door->isLocked() == true)
 	{
@@ -115,14 +105,20 @@ void Game::moveRooms()
 			{
 				Item k = items[j];
 
-				std::cout << "It looks like you have a door key for this door! You may use a door key only once, do you want to use it here?" << std::endl;
-				std::string key_usage;
+				std::cout << "It looks like you have a door key for this door! You may use a door key only once" << std::endl;
+				std::cout << "You have the following options:" << std::endl;
+				std::cout << "1. Use door key for this door" << std::endl;
+				std::cout << "2. Do not use key here and go back" << std::endl;
+				int key_usage=0;
 				std::cin >> key_usage;
 
-				std::transform(key_usage.begin(), key_usage.end(), key_usage.begin(), ::tolower);
+				if (key_usage <= 0 || key_usage > 2)
+				{
+					std::cout << "Invalid input" << std::endl;
+					return;
+				}
 
-
-				if (key_usage == "yes")
+				if (key_usage == 1)
 				{
 					player.removeItem(k);
 					std::cout << "You have successfully unlocked the door. You no longer have that key" << std::endl;
@@ -136,7 +132,7 @@ void Game::moveRooms()
 					currentRoom->printDoorList();
 					return;
 				}
-				else if (key_usage == "no")
+				else if (key_usage == 2)
 				{
 					std::cout << "You can not enter this door" << std::endl;
 					return;
