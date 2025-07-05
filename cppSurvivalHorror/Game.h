@@ -16,6 +16,9 @@ public:
 	void run();
 	void showBackstory();
 
+	//main options menu
+	void showOptions();
+
 	//Room movement
 	void moveRooms();
 

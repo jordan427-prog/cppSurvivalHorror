@@ -10,7 +10,7 @@ void Game::setup()
 	Item intro_photo = Item::Item("house owners photograph", "This photo looks to be an old couple in front of this house. I'm assuming they used to live here years ago. I wonder what happened to them...", "viewing");
 	std::vector<Item> livingRoomItems;
 	livingRoomItems.push_back(intro_photo);
-	Room* livingRoom = new Room("living room", "this dark and dusty room appears to be a living room...", livingRoomItems);
+	//Room* livingRoom = new Room("living room", "this dark and dusty room appears to be a living room...", livingRoomItems);
 	Item default_axe = Item::createDefaultAxe();
 	// the axe can be used for this
 	default_axe.addInteractiontags("broken door");
@@ -26,6 +26,9 @@ void Game::setup()
 	livingRoomCabinet.addItem(default_axe);
 	std::vector<Furniture> furn;
 	furn.push_back(livingRoomCabinet);
+	//here
+	Room* livingRoom = new Room("living room", "this dark and dusty room appears to be a living room...", livingRoomItems);
+
 	livingRoom->addFurniture(furn);
 	rooms.push_back(livingRoom);
 
@@ -45,7 +48,65 @@ void Game::setup()
 void Game::run()
 {
 	showBackstory();
-	moveRooms();
+	bool playing = true;
+
+	while (playing == true)
+	{
+		showOptions();
+
+		int choice = 0;
+		std::cin >> choice;
+
+		if (choice == 1)
+		{
+			moveRooms();
+		}
+
+		else if (choice == 2)
+		{
+			currentRoom->Describe();
+			currentRoom->getFurniture();
+			currentRoom->getItems();
+			std::vector<Door*> doors = currentRoom->getDoorList();
+
+			if (doors.size() == 0)
+			{
+				std::cout << "You see no doors in this room. This room appears to be a dead end." << std::endl;
+			}
+			else
+			{
+				std::cout << "You see " << doors.size() << " door(s) in this room." << std::endl;
+			}
+		}
+
+		else if (choice == 3)
+		{
+			std::vector<Item> items = player.getInventory();
+			std::cout << "Your inventory includes: " << std::endl;
+			if (items.size() == 0)
+			{
+				std::cout << "nothing. it is empty" << std::endl;
+			}
+			else
+			{
+				for (int i = 0;i < items.size();i++)
+				{
+					std::cout << "- " << items[i].getName() << " (" << items[i].getPurpose() << ")" << std::endl;
+				}
+			}
+		}
+
+		else if (choice == 4)
+		{
+			std::cout << "Quitting game. Thanks for playing." << std::endl;
+			playing = false;
+		}
+
+		else
+		{
+			std::cout << "Invalid input" << std::endl;
+		}
+	}
 }
 
 void Game::showBackstory()
@@ -53,6 +114,17 @@ void Game::showBackstory()
 	std::cout<<"You wake up in an abandoned and eerie looking house in the middle of nowhere."<<std::endl << "Its clear you have been kidnapped by somebody or something. You dont remember who you are or how you got here. " << std::endl;
 	std::cout << "You need to find a way to escape the house." << std::endl;
 }
+
+void Game::showOptions()
+{
+	std::cout << "\n===== Main Menu =====" << std::endl;
+	std::cout << "1. Move to another room" << std::endl;
+	std::cout << "2. Inspect room" << std::endl;
+	std::cout << "3. Check inventory" << std::endl;
+	std::cout << "4. Quit game" << std::endl;
+	std::cout << "Enter choice: ";
+}
+
 
 void Game::moveRooms()
 {
@@ -126,10 +198,10 @@ void Game::moveRooms()
 
 					std::cout << "You are now entering the " << door->getOtherRoom(currentRoom)->getName();
 					currentRoom = door->getOtherRoom(currentRoom);
-					currentRoom->Describe();
-					currentRoom->getFurniture();
-					currentRoom->getItems();
-					currentRoom->printDoorList();
+					//currentRoom->Describe();
+					//currentRoom->getFurniture();
+					//currentRoom->getItems();
+					//currentRoom->printDoorList();
 					return;
 				}
 				else if (key_usage == 2)
@@ -153,10 +225,10 @@ void Game::moveRooms()
 		Room* nextRoom = door->getOtherRoom(currentRoom);
 		std::cout << "You are now entering the " << nextRoom->getName();
 		currentRoom = door->getOtherRoom(currentRoom);
-		currentRoom->Describe();
-		currentRoom->getFurniture();
-		currentRoom->getItems();
-		currentRoom->printDoorList();
+		//currentRoom->Describe();
+		//currentRoom->getFurniture();
+		//currentRoom->getItems();
+		//currentRoom->printDoorList();
 	}
 
 }
