@@ -62,6 +62,7 @@ void Game::run()
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cout << "Invalid input." << std::endl;
+			continue;
 		}
 
 		if (choice == 1)
@@ -129,6 +130,7 @@ void Game::run()
 					std::cin.clear();
 					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 					std::cout << "Invalid input." << std::endl;
+					continue;
 				}
 
 				if (choice_item <= 0 || choice_item > items.size())
@@ -153,6 +155,7 @@ void Game::run()
 						std::cin.clear(); 
 						std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
 						std::cout << "Invalid input." << std::endl;
+						continue;
 					}
 
 
@@ -242,11 +245,16 @@ void Game::moveRooms()
 	int choice = 0;
 	std::cin >> choice;
 
-	if (choice <= 0 || choice > size)
+	if (std::cin.fail() || choice <= 0 || choice > size)
 	{
-		std::cout << "Invalid choice" << std::endl;
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::cout << "Invalid choice." << std::endl;
 		return;
 	}
+
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  
+
 
 	Door* door = connected_doors[choice - 1];
 
@@ -269,11 +277,14 @@ void Game::moveRooms()
 				int key_usage=0;
 				std::cin >> key_usage;
 
-				if (key_usage <= 0 || key_usage > 2)
+				if (std::cin.fail() || key_usage <= 0 || key_usage > 2)
 				{
-					std::cout << "Invalid input" << std::endl;
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					std::cout << "Invalid input." << std::endl;
 					return;
 				}
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 				if (key_usage == 1)
 				{
@@ -283,10 +294,6 @@ void Game::moveRooms()
 
 					std::cout << "You are now entering the " << door->getOtherRoom(currentRoom)->getName();
 					currentRoom = door->getOtherRoom(currentRoom);
-					//currentRoom->Describe();
-					//currentRoom->getFurniture();
-					//currentRoom->getItems();
-					//currentRoom->printDoorList();
 					return;
 				}
 				else if (key_usage == 2)
@@ -310,10 +317,6 @@ void Game::moveRooms()
 		Room* nextRoom = door->getOtherRoom(currentRoom);
 		std::cout << "You are now entering the " << nextRoom->getName();
 		currentRoom = door->getOtherRoom(currentRoom);
-		//currentRoom->Describe();
-		//currentRoom->getFurniture();
-		//currentRoom->getItems();
-		//currentRoom->printDoorList();
 	}
 
 }
