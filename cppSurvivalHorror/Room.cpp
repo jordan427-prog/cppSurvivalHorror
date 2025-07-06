@@ -114,7 +114,7 @@ std::vector<Item>& Room::getItemsList()
 }
 
 // Must do this after instantiation, refer to Furnitures's classes to see how to add items
-void Room::addFurniture(std::vector<Furniture> furn) {
+void Room::addFurniture(std::vector<Furniture>& furn) {
     for (int i = 0; i < furn.size(); i++) {
         furniture.push_back(furn[i]);
     }

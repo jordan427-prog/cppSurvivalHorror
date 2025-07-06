@@ -115,3 +115,8 @@ Item Furniture::getItemByName(std::string name)
     }
     return Item{};
 }
+
+void Furniture::unlock()
+{
+    this->isLocked = false;
+}

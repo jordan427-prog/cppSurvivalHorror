@@ -28,6 +28,7 @@ public:
     bool isLockedCheck();
     std::vector<Item> getItemsList();
     Item getItemByName(std::string name);
+    void unlock();
 
 private:
     std::string name;

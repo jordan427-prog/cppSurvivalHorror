@@ -25,7 +25,7 @@ public:
     Item getItemByName(std::string name);
     std::vector<Furniture>& getFurnitureList();
     std::vector<Item>& getItemsList();
-    void addFurniture(std::vector<Furniture> furn);
+    void addFurniture(std::vector<Furniture>& furn);
     std::string getName();
     void addDoor(Door* door);
     std::vector<Door*>& getDoorList();

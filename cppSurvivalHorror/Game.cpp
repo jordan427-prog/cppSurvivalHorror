@@ -182,7 +182,348 @@ void Game::run()
 
 		else if (choice == 5)
 		{
+			std::vector<Furniture>& furn = currentRoom->getFurnitureList();
 
+			if (furn.size() == 0)
+			{
+				std::cout << "\nThere is no furniture in this room to interact with." << std::endl;
+			}
+			else
+			{
+				std::cout << "\n===== Furniture Interaction Menu =====" << std::endl;
+				std::cout << "Select one of the following furniture items to ineract with: " << std::endl;
+				for (int i = 0;i < furn.size();i++)
+				{
+					std::cout << (i + 1) << ":" << furn[i].getName() << std::endl;
+				}
+				int choice_furn = 0;
+				std::cout << "Enter choice: ";
+				std::cin >> choice_furn;
+
+				if (std::cin.fail())
+				{
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					std::cout << "Invalid input." << std::endl;
+					continue;
+				}
+
+				if (choice_furn <= 0 || choice_furn > furn.size())
+				{
+					std::cout << "Invalid input." << std::endl;
+				}
+				else
+				{
+					// this ensurs item is NOT a copy, but a ref to the original
+					Furniture& item = furn[choice_furn - 1];
+
+					std::cout << "\nYou have selected: " << item.getName() << std::endl;
+					std::cout << "Description: " << item.getDescription() << std::endl;
+
+					if (item.isLockedCheck() == true)
+					{
+						std::cout << "\nThis furniture item is locked." << std::endl;
+
+						std::vector<Item> inv = player.getInventory();
+						std::vector<Item> interacting;
+
+
+						for (int k = 0;k < inv.size();k++)
+						{
+							bool check = inv[k].canInteractWith(item.getInteractiontag());
+							if (check == true)
+							{
+								interacting.push_back(inv[k]);
+							}
+						}
+
+						if (interacting.size() == 0)
+						{
+							std::cout << "\nYou have nothing in your inventory that can interact with this furniture." << std::endl;
+							continue;
+							//hi here!
+						}
+
+						else if (interacting.size() == 1)
+						{
+							std::cout << "\nYou have item(s) in your inventory that can interact with this furniture!" << std::endl;
+							std::cout << "These items include: " << std::endl;
+
+							for (int i = 0;i < interacting.size();i++)
+							{
+								std::cout << (i + 1) << ". " << interacting[i].getName() << std::endl;
+							}
+						}
+
+						std::cout << "\nWould you like to use an item from your inventory? You can only use an item once" << std::endl;
+						std::cout << "1. Yes" << std::endl;
+						std::cout << "2. No" << std::endl;
+						std::cout << "Enter choice: ";
+						int choice2 = 0;
+						std::cin >> choice2;
+
+						if (std::cin.fail())
+						{
+							std::cin.clear();
+							std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+							std::cout << "Invalid input." << std::endl;
+							continue;
+						}
+
+
+						if (choice2 == 1)
+						{
+							std::cout << "\nEnter the value for item you want to use: ";
+							int item_choice = 0;
+							std::cin >> item_choice;
+
+							if (std::cin.fail() || item_choice > interacting.size())
+							{
+								std::cin.clear();
+								std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+								std::cout << "Invalid input." << std::endl;
+								continue;
+							}
+
+							Item use = interacting[item_choice - 1];
+
+							player.removeItem(use);
+
+							std::cout << "\nYou have successfully used: " << use.getName() << " . It is no longer in your inventory" << std::endl;
+
+							item.unlock();
+		
+
+
+							std::cout << "\nYou have unlocked " << item.getName() << std::endl;
+							//now furniture is unlocked
+
+							std::vector<Item> furn_items = item.getItemsList();
+
+							if (furn_items.size() == 0)
+							{
+								std::cout << "There are no items found within " << item.getName() << std::endl;
+							}
+							else
+							{
+								std::cout << "\nNow that " << item.getName() << " is unlocked. you find the following items inside: " << std::endl;
+								
+								for (int i = 0;i < furn_items.size();i++)
+								{
+									std::cout << (i + 1) << ". " << furn_items[i].getName() << std::endl;
+								}
+
+								//add items to player, and delete from furniture
+
+								int adding = 1;
+
+								std::cout << "\nDo you want to add any of these items to your inventory?" << std::endl;
+								std::cout << "1. Yes" << std::endl;
+								std::cout << "2. No" << std::endl;
+
+								std::cin >> adding;
+
+								if (std::cin.fail() || adding > 2 || adding < 1)
+								{
+									std::cin.clear();
+									std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+									std::cout << "Invalid input." << std::endl;
+									continue;
+								}
+
+								if (adding == 1)
+								{
+									int flag = 1;
+									while (flag == 1)
+									{
+										std::vector<Item> furniture_items = item.getItemsList();
+										int amount_of_items = furniture_items.size();
+
+										if (amount_of_items == 0)
+										{
+											std::cout << "\nThere are no more items left to take here." << std::endl;
+											break;
+										}
+
+										std::cout << "\nSelect an item number to add to inventory." << std::endl;
+
+										for (int i = 0;i < furniture_items.size();i++)
+										{
+											std::cout << (i + 1) << ". " << furniture_items[i].getName() << std::endl;
+										}
+
+										std::cout << "\nEnter choice: ";
+
+										int adding_to_inv = 0;
+										std::cin >> adding_to_inv;
+
+										if (std::cin.fail() || adding_to_inv > furn_items.size() || adding_to_inv <=0)
+										{
+											std::cin.clear();
+											std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+											std::cout << "Invalid input." << std::endl;
+											continue;
+										}
+
+										Item itemToAdd = furniture_items[adding_to_inv - 1];
+
+										item.removeItem(itemToAdd);
+										player.addInventory(itemToAdd);
+
+										std::cout << "\nSuccessfully added item to inventory" << std::endl;
+										if (item.getItemsList().empty() == true)
+										{
+											std::cout << "\nAll items have been taken from this furniture." << std::endl;
+											break;
+										}
+										
+										
+
+
+										std::cout << "Would you like to add another one of the discovered items to inventory?" << std::endl;
+										std::cout << "1. Yes" << std::endl;
+										std::cout << "2. No" << std::endl;
+
+										int keepAdding = 0;
+										std::cin >> keepAdding;
+
+										if (std::cin.fail() || keepAdding > 2 || keepAdding < 1)
+										{
+											std::cin.clear();
+											std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+											std::cout << "Invalid input." << std::endl;
+											continue;
+										}
+
+										if (keepAdding == 2)
+										{
+											flag = 0;
+										}
+									}
+				
+									
+								}
+								else if (adding == 2)
+								{
+									std::cout << "\nNo items were taken. You can always come back to retrieve these items." << std::endl;
+								}
+							}
+
+						}
+						else if (choice2 == 2)
+						{
+							std::cout << "\nYou are no longer interacting with " << item.getName() << std::endl;
+						}
+						else
+						{
+							std::cout << "Invalid input." << std::endl;
+						}
+					}
+					else
+					{
+						//item is unlocked
+						std::vector<Item> furn_items = item.getItemsList();
+
+						if (furn_items.size() == 0)
+						{
+							std::cout << "There are no items found within " << item.getName() << std::endl;
+						}
+						else
+						{
+							std::cout << "\nYou find the following items inside " << item.getName() << std::endl;
+
+							for (int i = 0;i < furn_items.size();i++)
+							{
+								std::cout << (i + 1) << ". " << furn_items[i].getName() << std::endl;
+							}
+
+							int adding = 1;
+
+							std::cout << "\nDo you want to add any of these items to your inventory?" << std::endl;
+							std::cout << "1. Yes" << std::endl;
+							std::cout << "2. No" << std::endl;
+
+							std::cin >> adding;
+
+							if (std::cin.fail() || adding > 2 || adding < 1)
+							{
+								std::cin.clear();
+								std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+								std::cout << "Invalid input." << std::endl;
+								continue;
+							}
+
+							if (adding == 1)
+							{
+								int flag = 1;
+								while (flag == 1)
+								{
+									std::cout << "\nSelect an item number to add to inventory." << std::endl;
+
+									std::vector<Item> furniture_items = item.getItemsList();
+
+									for (int i = 0;i < furniture_items.size();i++)
+									{
+										std::cout << (i + 1) << ". " << furniture_items[i].getName() << std::endl;
+									}
+
+									std::cout << "\nEnter choice: ";
+
+									int adding_to_inv = 0;
+									std::cin >> adding_to_inv;
+
+									if (std::cin.fail() || adding_to_inv > furn_items.size() || adding_to_inv <= 0)
+									{
+										std::cin.clear();
+										std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+										std::cout << "Invalid input." << std::endl;
+										continue;
+									}
+
+									Item itemToAdd = furniture_items[adding_to_inv - 1];
+
+									item.removeItem(itemToAdd);
+									player.addInventory(itemToAdd);
+
+									std::cout << "\nSuccessfully added item to inventory" << std::endl;
+
+									if (item.getItemsList().empty() == true)
+									{
+										std::cout << "\nAll items have been taken from this furniture." << std::endl;
+										break;
+									}
+
+									std::cout << "Would you like to add another one of the discovered items to inventory?" << std::endl;
+									std::cout << "1. Yes" << std::endl;
+									std::cout << "2. No" << std::endl;
+
+									int keepAdding = 0;
+									std::cin >> keepAdding;
+
+									if (std::cin.fail() || keepAdding > 2 || keepAdding < 1)
+									{
+										std::cin.clear();
+										std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+										std::cout << "Invalid input." << std::endl;
+										continue;
+									}
+
+									if (keepAdding == 2)
+									{
+										flag = 0;
+									}
+								}
+							}
+							else if (adding == 2)
+							{
+								std::cout << "\nNo items were taken. You can always come back to retrieve these items." << std::endl;
+							}
+						}
+					}
+
+					
+				}
+			}
 		}
 
 		else if (choice == 6)
@@ -206,8 +547,8 @@ void Game::showOptions()
 	std::cout << "1. Move to another room" << std::endl;
 	std::cout << "2. Inspect room" << std::endl;
 	std::cout << "3. Check inventory" << std::endl;
-	std::cout << "4. Inspect Item" << std::endl;
-	std::cout << "5. Inspect Furniture" << std::endl;
+	std::cout << "4. Inspect Item in current room" << std::endl;
+	std::cout << "5. Inspect Furniture in current room" << std::endl;
 	std::cout << "6. Quit game" << std::endl;
 	std::cout << "Enter choice: ";
 }
@@ -322,3 +663,4 @@ void Game::moveRooms()
 	}
 
 }
+
