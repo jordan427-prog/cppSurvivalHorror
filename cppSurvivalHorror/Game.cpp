@@ -72,6 +72,7 @@ void Game::run()
 
 		else if (choice == 2)
 		{
+			std::cout << std::endl;
 			currentRoom->Describe();
 			currentRoom->getFurniture();
 			currentRoom->getItems();
@@ -85,12 +86,13 @@ void Game::run()
 			{
 				std::cout << "You see " << doors.size() << " door(s) in this room." << std::endl;
 			}
+			std::cout << std::endl;
 		}
 
 		else if (choice == 3)
 		{
 			std::vector<Item> items = player.getInventory();
-			std::cout << "Your inventory includes: " << std::endl;
+			std::cout << "\nYour inventory includes: " << std::endl;
 			if (items.size() == 0)
 			{
 				std::cout << "nothing. it is empty" << std::endl;
@@ -111,7 +113,7 @@ void Game::run()
 
 			if (items.size() == 0)
 			{
-				std::cout << "There are no items in this room to interact with" << std::endl;
+				std::cout << "\nThere are no items in this room to interact with" << std::endl;
 			}
 			else
 			{
@@ -141,12 +143,13 @@ void Game::run()
 				{
 					Item item = items[choice_item - 1];
 
-					std::cout << "You have selected: " << item.getName() << " (" << item.getPurpose() << ")" << std::endl;
+					std::cout << "\nYou have selected: " << item.getName() << " (" << item.getPurpose() << ")" << std::endl;
 					std::cout << "Description: " << item.getDescription() << std::endl;
 
 					std::cout << "\nWould you like to add this item to inventory?" << std::endl;
 					std::cout << "1. Yes" << std::endl;
 					std::cout << "2. No" << std::endl;
+					std::cout << "Enter choice: ";
 					int choice2 = 0;
 					std::cin >> choice2;
 
@@ -163,11 +166,11 @@ void Game::run()
 					{
 						player.addInventory(item);
 						currentRoom->removeItem(item);
-						std::cout << "You have successfully added " << item.getName() << " to your inventory" << std::endl;
+						std::cout << "\nYou have successfully added " << item.getName() << " to your inventory" << std::endl;
 					}
 					else if (choice2 == 2)
 					{
-						std::cout << "Item has been placed back down. You can come back to this item later" << std::endl;
+						std::cout << "\nItem has been placed back down. You can come back to this item later" << std::endl;
 					}
 					else
 					{
@@ -188,16 +191,12 @@ void Game::run()
 			playing = false;
 		}
 
-	/*	else
-		{
-			std::cout << "Invalid input" << std::endl;
-		}*/
 	}
 }
 
 void Game::showBackstory()
 {
-	std::cout<<"You wake up in an abandoned and eerie looking house in the middle of nowhere."<<std::endl << "Its clear you have been kidnapped by somebody or something. You dont remember who you are or how you got here. " << std::endl;
+	std::cout<<"\nYou wake up in an abandoned and eerie looking house in the middle of nowhere."<<std::endl << "Its clear you have been kidnapped by somebody or something. You dont remember who you are or how you got here. " << std::endl;
 	std::cout << "You need to find a way to escape the house." << std::endl;
 }
 
@@ -222,25 +221,27 @@ void Game::moveRooms()
 	
 	if (size == 0)
 	{
-		std::cout << "There are no doors in this room" << std::endl;
+		std::cout << "\nThere are no doors in this room" << std::endl;
 		return;
 	}
 	else if (size == 1)
 	{
-		std::cout << "There is one door in this room" << std::endl;
+		std::cout << "\nThere is one door in this room" << std::endl;
 	}
 	else 
 	{
-		std::cout << "There are " << size << " doors in this room" << std::endl;
+		std::cout << "\nThere are " << size << " doors in this room:" << std::endl;
 	}
 
-	std::cout << "pick a door to interact with" << std::endl;
+	//std::cout << "pick a door to interact with: " << std::endl;
 
 
 	for (int k = 0;k < connected_doors.size();k++)
 	{
 		std::cout << (k + 1) << ". " << connected_doors[k]->getName() << std::endl;
 	}
+
+	std::cout << "\nPick a door to interact with: ";
 
 	int choice = 0;
 	std::cin >> choice;
@@ -260,7 +261,7 @@ void Game::moveRooms()
 
 	if (door->isLocked() == true)
 	{
-		std::cout << "This door is locked, you need a key" << std::endl;
+		std::cout << "\nThis door is locked, you need a key" << std::endl;
 
 		std::vector<Item> items = player.getInventory();
 
@@ -274,6 +275,7 @@ void Game::moveRooms()
 				std::cout << "You have the following options:" << std::endl;
 				std::cout << "1. Use door key for this door" << std::endl;
 				std::cout << "2. Do not use key here and go back" << std::endl;
+				std::cout << "Enter choice: ";
 				int key_usage=0;
 				std::cin >> key_usage;
 
@@ -289,16 +291,16 @@ void Game::moveRooms()
 				if (key_usage == 1)
 				{
 					player.removeItem(k);
-					std::cout << "You have successfully unlocked the door. You no longer have that key" << std::endl;
+					std::cout << "\nYou have successfully unlocked the door. You no longer have that key" << std::endl;
 					door->unlock();
 
-					std::cout << "You are now entering the " << door->getOtherRoom(currentRoom)->getName();
+					std::cout << "\nYou are now entering the " << door->getOtherRoom(currentRoom)->getName();
 					currentRoom = door->getOtherRoom(currentRoom);
 					return;
 				}
 				else if (key_usage == 2)
 				{
-					std::cout << "You can not enter this door" << std::endl;
+					std::cout << "\nYou can not enter this door" << std::endl;
 					return;
 				}
 				else
@@ -308,14 +310,14 @@ void Game::moveRooms()
 				}
 			}
 		}
-		std::cout << "You do not have a key for this door" << std::endl;
+		std::cout << "\nYou do not have a key for this door" << std::endl;
 		return;
 	}
 
 	else if (door->isLocked() == false)
 	{
 		Room* nextRoom = door->getOtherRoom(currentRoom);
-		std::cout << "You are now entering the " << nextRoom->getName();
+		std::cout << "\nYou are now entering the " << nextRoom->getName();
 		currentRoom = door->getOtherRoom(currentRoom);
 	}
 
