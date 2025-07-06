@@ -48,7 +48,7 @@ bool Room::isConnected(Room* targ)
 }
 
 void Room::Describe() {
-    std::cout << "You see " << description << std::endl;
+    std::cout << description << std::endl;
 }
 
 std::string Room::getDescription()
@@ -83,7 +83,7 @@ void Room::getItems()
 {
     for (int i = 0;i < items.size();i++)
     {
-        std::cout << "You see " << items[i].getName() << std::endl;
+        std::cout << "You see " << items[i].getDescription() << std::endl;
     }
 }
 

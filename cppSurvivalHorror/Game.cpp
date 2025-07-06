@@ -7,7 +7,7 @@ Game::Game()
 void Game::setup()
 {
 	// living room
-	Item intro_photo = Item::Item("house owners photograph", "This photo looks to be an old couple in front of this house. I'm assuming they used to live here years ago. I wonder what happened to them...", "viewing");
+	Item intro_photo = Item::Item("house owners photograph", "An old photograph", "viewing");
 	std::vector<Item> livingRoomItems;
 	livingRoomItems.push_back(intro_photo);
 	//Room* livingRoom = new Room("living room", "this dark and dusty room appears to be a living room...", livingRoomItems);

@@ -19,12 +19,12 @@ Furniture::Furniture()
 
 Furniture Furniture::createDefaultCabinet()
 {
-    return Furniture("cabinet", "an old locked dusty cabinet", "cabinet", true);
+    return Furniture("cabinet", "an old cabinet", "cabinet", true);
 }
 
 Furniture Furniture::createDefaultShelf()
 {
-    return Furniture("shelf", "an old locked dusty shelf", "shelf", true);
+    return Furniture("shelf", "an old dusty shelf", "shelf", true);
 }
 
 Furniture Furniture::createDefaultChair()
@@ -49,7 +49,7 @@ Furniture Furniture::createDefaultTable()
 
 Furniture Furniture::createCouch()
 {
-    return Furniture("couch", "this seems to be a regular couch. This is at least 100 years old. It sure is dirty", "couch", false);
+    return Furniture("couch", "an old fabric couch", "couch", false);
 }
 
 std::string Furniture::getName() {
