@@ -19,22 +19,22 @@ Furniture::Furniture()
 
 Furniture Furniture::createDefaultCabinet()
 {
-    return Furniture("cabinet", "an old cabinet", "cabinet", true);
+    return Furniture("cabinet", "An old cabinet", "cabinet", true);
 }
 
 Furniture Furniture::createDefaultShelf()
 {
-    return Furniture("shelf", "an old dusty shelf", "shelf", true);
+    return Furniture("shelf", "An old dusty shelf", "shelf", true);
 }
 
 Furniture Furniture::createDefaultChair()
 {
-    return Furniture("chair", "an old dusty chair", "chair", false);
+    return Furniture("chair", "An old dusty chair", "chair", false);
 }
 
 Furniture Furniture::createDefaultTable()
 {
-    return Furniture("table", "an old dusty table", "table", false);
+    return Furniture("table", "An old dusty table", "table", false);
 }
 
 //Furniture Furniture::createDefaultDoor()

@@ -13,6 +13,7 @@ public:
     int getHealth();
     int getSanity();
     std::vector<Item> getInventory();
+    void addInventory(Item item);
     void addInventory(std::vector<Item> incoming_item);
     bool hasItem(Item& item);
     bool removeItem(Item& item);

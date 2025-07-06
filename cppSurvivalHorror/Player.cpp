@@ -47,6 +47,13 @@ std::vector<Item> Player::getInventory() {
     return inventory;
 }
 
+void Player::addInventory(Item item1)
+{
+    std::vector<Item> item;
+    item.push_back(item1);
+    addInventory(item);
+}
+
 void Player::addInventory(std::vector<Item> incoming_item) {
     for (int i = 0; i < incoming_item.size(); i++) {
         inventory.push_back(incoming_item[i]);

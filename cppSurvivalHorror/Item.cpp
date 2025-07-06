@@ -17,17 +17,17 @@ Item::Item()
 
 Item Item::createDefaultAxe()
 {
-    return Item("axe", "a small rusty axe.", "You can use this to break brittle and thin wood");
+    return Item("axe", "A small rusty axe.", "You can use this to break brittle and thin wood");
 }
 
 Item Item::createDefaultDoorKey()
 {
-    return Item("door key", "an old door key", "door key");
+    return Item("door key", "An old door key", "door key");
 }
 
 Item Item::createDefaultCabinetKey()
 {
-    return Item("cabinet key", "an old cabinet key", "cabinet key");
+    return Item("cabinet key", "An old cabinet key", "cabinet key");
 }
 
 // Must use this function after instantiating to ensure item will be "tied" to certain furniture

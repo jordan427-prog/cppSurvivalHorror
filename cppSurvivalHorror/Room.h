@@ -30,6 +30,7 @@ public:
     void addDoor(Door* door);
     std::vector<Door*>& getDoorList();
     void printDoorList();
+    bool removeItem(Item& item);
 
 private:
     std::string name;

@@ -83,7 +83,7 @@ void Room::getItems()
 {
     for (int i = 0;i < items.size();i++)
     {
-        std::cout << "You see " << items[i].getDescription() << std::endl;
+        std::cout << "You see " << items[i].getName() << std::endl;
     }
 }
 
@@ -152,4 +152,14 @@ void Room::printDoorList()
             std::cout << doors[i]->getName() << " which is currently: unlocked" << std::endl;
         }
     }
+}
+
+bool Room::removeItem(Item& item) {
+    for (auto it = items.begin(); it != items.end(); ++it) {
+        if (it->getName() == item.getName()) {
+            items.erase(it);
+            return true;
+        }
+    }
+    return false;
 }
